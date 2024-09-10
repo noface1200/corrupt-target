@@ -1,0 +1,1 @@
+from corruptfile import *
