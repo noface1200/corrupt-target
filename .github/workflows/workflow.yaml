@@ -3,11 +3,12 @@ name: Upload Python Package to PyPI
 on:
   push:
     branches:
-      - main  # Change this to the branch you are using
+      - main  # Adjust to your default branch
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: production  # You can use a different environment name, like "staging" or "prod"
 
     steps:
     - name: Checkout code
@@ -16,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  # Adjust the Python version if needed
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
@@ -29,7 +30,7 @@ jobs:
 
     - name: Publish package to PyPI
       env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}  # PyPI username (stored in GitHub secrets)
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}  # PyPI password (stored in GitHub secrets)
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python -m twine upload dist/*
